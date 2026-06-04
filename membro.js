@@ -837,8 +837,6 @@ function initPWA() {
 
 onAuthStateChanged(auth, async (user) => {
     await fetchAllData();
-    initPWA();
-    // Mostra o card após carregar os dados
     showInstallCard();
 });
 
@@ -852,3 +850,5 @@ if ('serviceWorker' in navigator) {
         }
     });
 }
+
+initPWA();
