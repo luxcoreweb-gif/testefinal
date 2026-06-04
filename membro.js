@@ -762,30 +762,27 @@ function closeInstallCard() {
     }
 }
 
-// Função para instalar o app
 function installApp() {
     if (deferredPrompt) {
-        // Chrome/Edge/Samsung Internet
+        // PC / Chrome / Android com suporte direto
         deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('Usuário aceitou a instalação');
-            }
+
+        deferredPrompt.userChoice.then(() => {
             deferredPrompt = null;
         });
+
     } else {
-        // Fallback para dispositivos que não suportam beforeinstallprompt
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // Mobile / iOS / fallback REAL (sem textão inútil)
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const isAndroid = /Android/.test(navigator.userAgent);
-        
+
         if (isIOS) {
-            if (confirm('Para instalar este app no seu iPhone:\n\n1. Toque no botão Compartilhar 📤\n2. Role e toque em "Adicionar à Tela de Início"\n3. Confirme "Adicionar"\n\nDeseja ver o tutorial agora?')) {
-                window.open('https://support.apple.com/pt-br/HT211020', '_blank');
-            }
+            alert('iPhone: toque em "Compartilhar" → "Adicionar à Tela de Início".');
         } else if (isAndroid) {
-            alert('Para instalar:\n\n1. Toque no menu (⋮) no canto superior\n2. Selecione "Instalar aplicativo"\n3. Confirme a instalação');
+            alert('Android: toque no menu ⋮ e depois "Instalar aplicativo".');
         } else {
-            alert('Para instalar este app no computador:\n\n• Chrome/Edge: Clique no ícone de instalação na barra de endereço\n• Firefox: Disponível via extensões');
+            alert('Clique no ícone de instalar na barra do navegador.');
         }
     }
 }
