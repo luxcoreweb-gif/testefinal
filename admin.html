@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0F0F12">
+    <title>Admin · Avaré Promoções</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" type="image/png" href="avare.png">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<div class="shell">
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+            <div class="brand">
+                <img src="avare.png" alt="Avaré" class="brand-logo">
+            </div>
+            <nav class="sidebar-nav" role="navigation" aria-label="Navegação principal">
+                <button class="nav-item active" data-page="dashboard" aria-current="page">
+                    <span class="nav-indicator"></span>
+                    <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                        <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                    </svg>
+                    <span>Início</span>
+                </button>
+                <button class="nav-item" data-page="categories">
+                    <span class="nav-indicator"></span>
+                    <svg class="nav-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h16M4 12h16M4 18h7"/>
+                    </svg>
+                    <span>Categorias</span>
+                </button>
+            </nav>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="user-card">
+                <div class="user-avatar" id="sidebarAvatar">A</div>
+                <div class="user-info">
+                    <span class="user-name" id="adminName">Administrador</span>
+                    <span class="user-email" id="adminEmail">—</span>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" aria-label="Sair da conta">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <header class="topbar" role="banner">
+        <button class="topbar-menu" id="mobileMenuToggle" aria-label="Abrir menu" aria-expanded="false">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="15" y2="17"/>
+            </svg>
+        </button>
+        <img src="avare.png" alt="Avaré" class="topbar-logo">
+        <div class="topbar-spacer"></div>
+    </header>
+
+    <aside class="drawer" id="mobileSidebar" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+        <div class="drawer-header">
+            <img src="avare.png" alt="Avaré" class="drawer-logo">
+            <button class="drawer-close" id="closeSidebar" aria-label="Fechar menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+        <div class="drawer-user">
+            <div class="user-avatar sm" id="mobileAvatar">A</div>
+            <div>
+                <strong id="mobileUserName">Administrador</strong>
+                <small id="mobileUserEmail">—</small>
+            </div>
+        </div>
+        <nav class="drawer-nav">
+            <button class="mobile-nav-btn active" data-page="dashboard">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                    <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                </svg>
+                Início
+            </button>
+            <button class="mobile-nav-btn" data-page="categories">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                    <path d="M4 6h16M4 12h16M4 18h7"/>
+                </svg>
+                Categorias
+            </button>
+        </nav>
+        <div class="drawer-footer">
+            <button class="drawer-logout" id="mobileLogoutBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                Sair da conta
+            </button>
+        </div>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main class="main" role="main">
+
+        <section class="page active" id="dashboardPage" aria-label="Dashboard">
+            <header class="page-header" style="justify-content: space-between; align-items: center;">
+                <div class="page-header-text">
+                    <h1 class="page-title">Início</h1>
+                    <p class="page-subtitle">Visão geral da plataforma</p>
+                </div>
+            </header>
+
+            <div class="metrics-row">
+                <article class="metric-card" data-index="0">
+                    <div class="metric-top">
+                        <div class="metric-label">Categorias</div>
+                        <div class="metric-icon-wrap">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="statCategories">
+                        <span class="skeleton-num"></span>
+                    </div>
+                    <div class="metric-footer">Cadastradas</div>
+                </article>
+                <article class="metric-card" data-index="1">
+                    <div class="metric-top">
+                        <div class="metric-label">Estabelecimentos</div>
+                        <div class="metric-icon-wrap">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                        </div>
+                    </div>
+                    <div class="metric-value" id="statEstablishments">
+                        <span class="skeleton-num"></span>
+                    </div>
+                    <div class="metric-footer">Registrados</div>
+                </article>
+            </div>
+
+            <div class="recent-section">
+                <div class="recent-header">
+                    <h2 class="section-title">Últimos cadastrados</h2>
+                </div>
+                <div id="recentList" class="recent-list"></div>
+            </div>
+        </section>
+
+        <section class="page" id="categoriesPage" aria-label="Categorias">
+            <header class="page-header">
+                <div class="page-header-text">
+                    <h1 class="page-title">Categorias</h1>
+                    <p class="page-subtitle">Gerencie as categorias da plataforma</p>
+                </div>
+                <button class="btn-primary" id="newCategoryBtn">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Nova categoria
+                </button>
+            </header>
+
+            <div class="search-bar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+                    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input type="text" id="searchCategories" placeholder="Buscar categoria ou palavra-chave..." autocomplete="off" spellcheck="false">
+            </div>
+
+            <div id="categoriesGrid" class="categories-table" role="list" aria-label="Lista de categorias"></div>
+        </section>
+
+    </main>
+
+    <aside class="panel" id="rightPanel" role="complementary" aria-label="Estabelecimentos">
+        <div class="panel-header">
+            <div class="panel-title-group">
+                <h2 class="panel-title" id="panelTitle">Estabelecimentos</h2>
+            </div>
+            <div class="panel-actions">
+                <button class="panel-add-btn" id="panelAddBtn" aria-label="Adicionar estabelecimento">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    Adicionar
+                </button>
+                <button class="panel-close-btn" id="panelClose" aria-label="Fechar painel">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+        </div>
+        <div class="panel-body" id="panelBody">
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+                <span>Selecione uma categoria</span>
+            </div>
+        </div>
+    </aside>
+
+</div>
+
+<div class="modal" id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+        <div class="modal-header">
+            <h3 class="modal-title" id="categoryModalTitle">Nova categoria</h3>
+            <button class="modal-close-btn" data-modal="categoryModal" aria-label="Fechar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="categoryForm" novalidate>
+                <input type="hidden" id="catId">
+                <div class="field">
+                    <label class="field-label" for="catName">Nome <span class="required">*</span></label>
+                    <input class="field-input" type="text" id="catName" placeholder="Ex: Restaurantes" required autocomplete="off">
+                </div>
+                <div class="field">
+                    <label class="field-label">Ícone</label>
+                    <div class="toggle-group">
+                        <button type="button" class="toggle-opt active" data-type="url">URL</button>
+                        <button type="button" class="toggle-opt" data-type="file">Upload</button>
+                        <button type="button" class="toggle-opt" data-type="search">Buscar</button>
+                    </div>
+                    <div id="catUrlBox" class="input-group">
+                        <input class="field-input" type="text" id="catIconUrl" placeholder="https://exemplo.com/icone.png">
+                    </div>
+                    <div id="catFileBox" class="input-group" style="display:none">
+                        <div class="upload-zone" id="catUploadZone">
+                            <input class="upload-input" type="file" id="catIconFile" accept="image/*">
+                            <div class="upload-placeholder" id="catUploadPlaceholder">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                <span>Arraste ou clique para enviar</span>
+                                <small>PNG, JPG, WEBP</small>
+                            </div>
+                            <div class="upload-preview" id="catPreview" style="display:none">
+                                <img id="catPreviewImg" src="" alt="Preview">
+                                <button type="button" class="upload-remove" id="catRemoveFile" aria-label="Remover imagem">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="catSearchBox" class="input-group" style="display:none">
+                        <div class="search-bar" style="margin-bottom: var(--sp-2);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="iconSearchInput" placeholder="Pesquisar ícone (ex: pizza, carro, hotel)" autocomplete="off">
+                        </div>
+                        <button type="button" id="searchGoogleImagesBtn" class="btn-ghost" style="width:100%;justify-content:center;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            Buscar no Google Imagens
+                        </button>
+                        <p class="keywords-hint" style="margin-top: var(--sp-2);">Clique no botão para abrir o Google Imagens e escolher um ícone. Copie a URL da imagem.</p>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="field-label">Palavras-chave</label>
+                    <div class="keywords-input-wrapper" id="keywordsWrapper">
+                        <div id="keywordsTags" class="keyword-tags"></div>
+                        <input type="text" class="keywords-input" id="keywordsInput" placeholder="Ex: Moto," autocomplete="off">
+                    </div>
+                    <span class="keywords-hint">Use vírgula para adicionar (máx 6).</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-ghost" data-modal="categoryModal">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="establishmentFormModal" role="dialog" aria-modal="true" aria-labelledby="estFormTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box modal-wide">
+        <div class="modal-header">
+            <h3 class="modal-title" id="estFormTitle">Novo estabelecimento</h3>
+            <button class="modal-close-btn" data-modal="establishmentFormModal" aria-label="Fechar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="establishmentForm" novalidate>
+                <input type="hidden" id="estId">
+                <input type="hidden" id="estOriginalId" value="">
+                <div class="form-grid-2">
+                    <div class="field">
+                        <label class="field-label" for="estName">Nome <span class="required">*</span></label>
+                        <input class="field-input" type="text" id="estName" required autocomplete="off">
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="estCategorySelect">Categoria <span class="required">*</span></label>
+                        <select class="field-input" id="estCategorySelect" required>
+                            <option value="">Selecione uma categoria...</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="field-label" for="estAddress">Endereço <span class="required">*</span></label>
+                    <input class="field-input" type="text" id="estAddress" required autocomplete="off">
+                </div>
+                <div class="field">
+                    <label class="field-label" for="estMaps">Google Maps</label>
+                    <input class="field-input" type="url" id="estMaps" placeholder="https://maps.google.com/...">
+                </div>
+                <div class="form-grid-2">
+                    <div class="field">
+                        <label class="field-label" for="estPhone">Telefone</label>
+                        <input class="field-input" type="tel" id="estPhone">
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="estWhatsapp">WhatsApp</label>
+                        <input class="field-input" type="tel" id="estWhatsapp">
+                    </div>
+                </div>
+                <!-- CAMPO "Telefone para exibição" REMOVIDO -->
+                <div class="form-grid-2">
+                    <div class="field">
+                        <label class="field-label" for="estInstagram">Instagram</label>
+                        <input class="field-input" type="text" id="estInstagram" placeholder="@usuario">
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="estFacebook">Facebook</label>
+                        <input class="field-input" type="text" id="estFacebook" placeholder="@usuario">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="field-label" for="estSite">Site</label>
+                    <input class="field-input" type="url" id="estSite" placeholder="https://exemplo.com">
+                </div>
+                <div class="field">
+                    <label class="field-label">Fotos <span class="field-hint">(máximo 3)</span></label>
+                    <div id="photosContainer" class="photos-stack"></div>
+                    <button type="button" id="addPhotoBtn" class="btn-add-photo">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        Adicionar foto
+                    </button>
+                    <span class="photo-limit-msg" id="photoLimitMsg"></span>
+                </div>
+                <div class="field">
+                    <label class="checkbox-label">
+                        <input class="checkbox-input" type="checkbox" id="estHasPromo">
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-text">Promoção / Preço especial</span>
+                    </label>
+                </div>
+                <div id="promoField" class="promo-section" style="display:none">
+                    <div class="promo-section-label">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        Detalhes da promoção
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="field">
+                            <label class="field-label" for="estPromoPhoto">Foto em destaque</label>
+                            <select class="field-input" id="estPromoPhoto" name="estPromoPhoto">
+                                <option value="">Nenhuma</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="field-label" for="estPromoText">Texto da promoção</label>
+                            <input class="field-input" type="text" id="estPromoText" placeholder="Ex: 20% OFF ou R$ 49,90">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-ghost" data-modal="establishmentFormModal">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="estSubmitBtn">
+                        <span class="btn-text">Salvar</span>
+                        <span class="btn-spinner" style="display:none">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="addToCategoriesModal" role="dialog" aria-modal="true" aria-labelledby="addToCategoriesTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box modal-narrow">
+        <div class="modal-header">
+            <h3 class="modal-title" id="addToCategoriesTitle">Adicionar a outras categorias</h3>
+            <button class="modal-close-btn" data-modal="addToCategoriesModal" aria-label="Fechar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div id="categoryChecklist" class="categories-checklist" style="display:flex;flex-direction:column;gap:var(--sp-2);max-height:300px;overflow-y:auto;"></div>
+            <div class="modal-footer">
+                <button class="btn-ghost" data-modal="addToCategoriesModal">Cancelar</button>
+                <button class="btn-primary" id="confirmAddToCategoriesBtn">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box modal-narrow">
+        <div class="modal-header">
+            <div class="modal-danger-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </div>
+            <h3 class="modal-title" id="confirmModalTitle">Confirmar exclusão</h3>
+            <button class="modal-close-btn" data-modal="confirmModal" aria-label="Fechar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="confirm-message" id="confirmMsg">Tem certeza que deseja excluir?</p>
+            <div class="modal-footer">
+                <button class="btn-ghost" data-modal="confirmModal">Cancelar</button>
+                <button class="btn-danger" id="confirmDeleteBtn">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
